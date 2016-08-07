@@ -1,3 +1,5 @@
+/*云朵动画效果*/
+
 .cloudsRight {
     -webkit-animation: cloud_right_to_left 6s linear normal forwards;
     animation: cloud_right_to_left 6s linear normal forwards
@@ -8,6 +10,7 @@
     animation: cloud_left_to_right 6s linear normal forwards
 }
 
+/*动画:云从左至右显现*/
 @-webkit-keyframes cloud_left_to_right {
     0% {
         opacity: 0;
@@ -56,6 +59,7 @@
     }
 }
 
+/*动画:云从右至左变化*/
 @-webkit-keyframes cloud_right_to_left {
     0% {
         z-index: 1000;

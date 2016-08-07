@@ -8,6 +8,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <link rel="stylesheet" href="css/cloud.css">
+    <link rel="stylesheet" href="css/dice.css">
     <script type="text/javascript" src="./jquery-1.11.3.js"></script>
     <script type="text/javascript" src="./resource-loader.js"></script>
     <script type="text/javascript">
@@ -21,15 +22,15 @@
             });
 
             //加载图片进度
-            resourceLoader.loadImages('url(\"images/mainpage/background.jpg\")', function (over, count, length, map) {
-                if(over){
-                    t.play();//播放音乐
-                    $('.progress').html("100%");//jquery设置:100%
-                    $('.loading-overlay').slideUp();//jquery效果:划出
-                }else{
-                    $('.progress').html(Math.floor(count / length * 100) + "%");
-                }
-            });
+//            resourceLoader.loadImages('url(\"images/mainpage/background.jpg\")', function (over, count, length, map) {
+//                if(over){
+//                    t.play();//播放音乐
+//                    $('.progress').html("100%");//jquery设置:100%
+//                    $('.loading-overlay').slideUp();//jquery效果:划出
+//                }else{
+//                    $('.progress').html(Math.floor(count / length * 100) + "%");
+//                }
+//            });
 
             //zoom缩放
             var ww = $(window).width();
@@ -63,6 +64,35 @@
 //                    console.log(this);//有任何疑问,用console.log打印出来
                     me.hide();
                 },3e3);
+                setTimeout(function () {
+                    $('.cloud').hide();
+                },6e3);
+            });
+
+            //头像点击事件
+            $('#headImage').on('click',function () {
+                $('.floating-dice').show();
+                $('.dice').show();
+                $('.dice-shadow').show();
+                var a = 1;
+                var it = setInterval(function () {
+                    if(a <= 5) {
+                        $('.dice img').attr('src', 'images/mainpage/dice4/' + a + '.png');
+                        $('.dice-shadow img').attr('src', 'images/mainpage/diceShadow/shadow' + a + '.png');
+                        a++;
+                    }
+                    else {
+                        $('.dicecount').show();
+                        clearInterval(it);
+                    }
+                },1000);
+//                setTimeout(function () {
+//                    for(var a = 1; a <= 5; i++){
+//                        $('.dice').
+//                    }
+//                },4e3);
+//                console.log($('.dice'));
+//                $('.dice').show();
             });
         });
     </script>
@@ -181,6 +211,25 @@
             width: 100%;
             height: 100%;
         }
+
+        .head-image-background {
+            background: url('images/mainpage/background.jpg') no-repeat;
+            width: 640px;
+            height: 1202px;
+            z-index: 98;
+        }
+
+        #headImage {
+            background-image: url(http://static.leanote.top/ttxd/images/mianpage/head-img.png);
+            position: absolute;
+            width: 70px;
+            height: 70px;
+        }
+
+        .headImageStart {
+            left: 78px;
+            top: 320px;
+        }
     </style>
 </head>
 
@@ -194,11 +243,29 @@
 </div>
 <div class="swiper-container">
     <div class="swiper-slide slide-1 overflow-scr" style="height: 947px">
+
         <!--背景图片,logo和中心button-->
         <div class="back_ground">
             <div class="item-image"></div>
             <div class="">
                 <input type="button" id="" class="item-btn">
+            </div>
+        </div>
+
+        <!--头像-->
+        <div class="head-image-background">
+            <div id="headImage" class="headImageStart"></div>
+
+                <!--色子图片以及色子阴影-->
+                <div class="floating-dice"></div>
+                <div class="dice">
+                    <img src=""/>
+                </div>
+                <div class="dice-shadow">
+                    <img src="">
+                </div>
+                <div class="dicecount">【前进4步】</div>
+
             </div>
         </div>
     </div>
