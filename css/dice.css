@@ -1,5 +1,14 @@
 /*色字动画效果*/
 
+.dice-all{
+    width:100%;
+    height: 100%;
+    left:0px;
+    top:0px;
+    position: absolute;
+    display: none;
+}
+
 .dice {
     width:100%;
     height: 100%;
@@ -9,8 +18,8 @@
     margin-left: -72px;
     margin-top: -49px;;
     opacity: 1;
-    display: none;
 }
+
 
 .dice-shadow{
     width:100%;
@@ -21,7 +30,6 @@
     margin-left: -72px;
     margin-top: -49px;;
     opacity: 1;
-    display: none;
 }
 
 .floating-dice{
@@ -32,7 +40,6 @@
     top:0px;
     opacity: 0.5;
     background: gray;
-    display: none;
 }
 
 .dicecount {
@@ -46,5 +53,4 @@
     color: #61b0cf;
     top: 480px;
     font-size: 45px;
-    display: none;
 }

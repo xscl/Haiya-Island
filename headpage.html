@@ -73,9 +73,10 @@
 
             //头像点击事件
             $('#headImage').on('click',function () {
-                $('.floating-dice').show();
-                $('.dice').show();
-                $('.dice-shadow').show();
+                //dice-all一定要影藏,才能操作下层图层
+                $('.dice-all').show();
+                $('.dicecount').hide();
+
                 var a = 1;
                 var it = setInterval(function () {
                     if(a <= 5) {
@@ -94,11 +95,7 @@
             var pointArray = pointExport.exportPoints();
             $('.dicecount').on('click',function () {
                 //影藏图层
-                $('.floating-dice').hide();
-                $('.dice').hide();
-                $('.dice-shadow').hide();
-                $('.dicecount').hide();
-
+                $('.dice-all').hide();
                 //移动位置
                 var point1 = pointArray.point1;
                 var point4 = pointArray.point4;
@@ -266,14 +263,16 @@
         <div class="head-image-background">
             <div id="headImage" class="headImageStart"></div>
                 <!--色子图片以及色子阴影-->
-                <div class="floating-dice"></div>
-                <div class="dice">
-                    <img src=""/>
+                <div class="dice-all">
+                    <div class="floating-dice"></div>
+                    <div class="dice">
+                        <img src=""/>
+                    </div>
+                    <div class="dice-shadow">
+                        <img src="">
+                    </div>
+                    <div class="dicecount">【前进4步】</div>
                 </div>
-                <div class="dice-shadow">
-                    <img src="">
-                </div>
-                <div class="dicecount">【前进4步】</div>
             </div>
         </div>
 
