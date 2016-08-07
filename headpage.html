@@ -9,11 +9,31 @@
     <meta name="description" content="">
     <link rel="stylesheet" href="css/cloud.css">
     <script type="text/javascript" src="./jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="./resource-loader.js"></script>
     <script type="text/javascript">
         $(function() {
+            //判断是否是横向观看
+            $(document).ready(function () {//jquery事件
+//                console.log("width"+ document.body.offsetWidth);
+//                console.log("height"+ document.body.offsetHeight);
+                document.body.offsetWidth > document.body.offsetHeight && document.body.offsetWidth > 400 ?
+                        $('.rotate-overlay').show() : $('.rotate-overlay').hide();
+            });
+
+            //加载图片进度
+            resourceLoader.loadImages('url(\"images/mainpage/background.jpg\")', function (over, count, length, map) {
+                if(over){
+                    t.play();//播放音乐
+                    $('.progress').html("100%");//jquery设置:100%
+                    $('.loading-overlay').slideUp();//jquery效果:划出
+                }else{
+                    $('.progress').html(Math.floor(count / length * 100) + "%");
+                }
+            });
+
             //zoom缩放
             var ww = $(window).width();
-            console.log(ww);
+//            console.log(ww);
             $('.swiper-container').css({
                 zoom: (ww / 640).toFixed(2)
             });
@@ -165,13 +185,13 @@
 </head>
 
 <body>
-<!--<div class="loading-overlay">-->
-    <!--<img src="images/loading.png" class="rotate">-->
-    <!--<p class="progress">0%</p>-->
-<!--</div>-->
-<!--<div class="rotate-overlay">-->
-    <!--请竖起手机观看～-->
-<!--</div>-->
+<div class="loading-overlay">
+    <img src="images/loading.png" class="rotate">
+    <p class="progress">0%</p>
+</div>
+<div class="rotate-overlay">
+    请竖起手机观看～
+</div>
 <div class="swiper-container">
     <div class="swiper-slide slide-1 overflow-scr" style="height: 947px">
         <!--背景图片,logo和中心button-->

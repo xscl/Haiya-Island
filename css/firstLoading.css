@@ -1,0 +1,38 @@
+/*.loading-overlay, .rotate-overlay {*/
+    /*position: fixed;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*color: #fff*/
+/*}*/
+
+.rotate-overlay {
+    display: none;
+    z-index: 10000;
+    background-color: #222;
+    left: 0;
+    top: 0;
+    line-height: 320px;
+    text-align: center
+}
+
+.loading-overlay {
+    background-color: #000;
+    z-index: 9999
+}
+
+.rotate {
+    animation: rotate 3s linear 0s infinite normal forwards;
+    -moz-animation: rotate 3s linear 0s normal forwards 1 running;
+    -webkit-animation: rotate 3s linear 0s infinite normal forwards;
+}
+
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0turn);
+        transform: rotate(0turn);
+    }
+    to {
+        -webkit-transform: rotate(1turn);
+        transform: rotate(1turn);
+    }
+}
