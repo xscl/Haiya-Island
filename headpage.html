@@ -7,6 +7,7 @@
     <!-- Add your keywords and description here for SEO. -->
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <link rel="stylesheet" href="css/cloud.css">
     <script type="text/javascript" src="./jquery-1.11.3.js"></script>
     <script type="text/javascript">
         $(function() {
@@ -16,6 +17,7 @@
             $('.swiper-container').css({
                 zoom: (ww / 640).toFixed(2)
             });
+
             // 音乐控制
             $('#musicBtn').on('click', function () {
                 var myVideo=document.getElementById("video1");
@@ -27,6 +29,12 @@
                     myVideo.pause();
                     $(this).removeClass("played").addClass("paused");
                 }
+            });
+
+            //云聚拢和散去
+            $('.item-btn').on('click',function () {
+                $('.cloud_up').addClass("cloudsRight");
+                $('.cloud_down').addClass("cloudsLeft");
             });
         });
     </script>
@@ -127,11 +135,21 @@
             overflow-x: hidden;
         }
 
-        .yun {
+        .cloud {
             position: absolute;
         }
 
-        .swiper-container, .yun {
+        .cloud .cloud_down, .cloud .cloud_up {
+            opacity: 0;
+            left: 0;
+            position: absolute;
+        }
+
+        .cloud, .cloud .cloud_up {
+            top: 0;
+        }
+
+        .swiper-container, .cloud {
             width: 100%;
             height: 100%;
         }
@@ -158,7 +176,12 @@
     </div>
 </div>
 <div class="cloud" style="overflow:hidden">
-    <div
+    <div class="cloud_up">
+        <img src="images/headpage/clouds.png">
+    </div>
+    <div class="cloud_down">
+        <img src="images/headpage/clouds.png">
+    </div>
 </div>
 <div id="musicBtn" class="btn-music played">
     <!--<i class="played"></i>-->
