@@ -10,10 +10,44 @@
     <link rel="stylesheet" href="css/cloud.css">
     <link rel="stylesheet" href="css/dice.css">
     <link rel="stylesheet" href="css/points.css">
+    <link rel="stylesheet" href="css/picLayer.css">
     <script type="text/javascript" src="./jquery-1.11.3.js"></script>
     <script type="text/javascript" src="./resource-loader.js"></script>
     <script type="text/javascript" src="./points-exporter.js"></script>
     <script type="text/javascript">
+        //全局变量:起始坐标点
+        var currentPointName = "point1";
+        //全局变量,所有的坐标点
+        var allPoints = pointExport.exportPoints();
+        function move(startPointName,endPointName,callBack){
+            var startPoint = allPoints[startPointName];
+            var endPoint = allPoints[endPointName];
+
+            var time = Math.abs(endPoint.left - startPoint.left + endPoint.top - startPoint.top) * 6;
+            $('#headImage').animate(endPoint,time,callBack);
+            currentPointName = endPointName;
+        }
+
+        function displayDice() {
+            //dice-all一定要影藏,才能操作下层图层
+            $('.dice-all').show();
+            $('.dicecount').hide();
+
+            var a = 1;
+            var it = setInterval(function () {
+                if (a <= 5) {
+                    $('.dice img').attr('src', 'images/mainpage/dice4/' + a + '.png');
+                    $('.dice-shadow img').attr('src', 'images/mainpage/diceShadow/shadow' + a + '.png');
+                    a++;
+                }
+                else {
+                    $('.dicecount').show();
+                    clearInterval(it);
+                }
+            }, 500);
+        }
+
+
         $(function() {
             //判断是否是横向观看
             $(document).ready(function () {//jquery事件
@@ -73,33 +107,30 @@
 
             //头像点击事件
             $('#headImage').on('click',function () {
-                //dice-all一定要影藏,才能操作下层图层
-                $('.dice-all').show();
-                $('.dicecount').hide();
+                if(currentPointName == "point1") {
+                    displayDice();
+                }else if(currentPointName == "point4"){
 
-                var a = 1;
-                var it = setInterval(function () {
-                    if(a <= 5) {
-                        $('.dice img').attr('src', 'images/mainpage/dice4/' + a + '.png');
-                        $('.dice-shadow img').attr('src', 'images/mainpage/diceShadow/shadow' + a + '.png');
-                        a++;
-                    }
-                    else {
-                        $('.dicecount').show();
-                        clearInterval(it);
-                    }
-                },500);
+                }
             });
 
-//            前进4步
-            var pointArray = pointExport.exportPoints();
+            //前进4步
             $('.dicecount').on('click',function () {
-                //影藏图层
-                $('.dice-all').hide();
-                //移动位置
-                var point1 = pointArray.point1;
-                var point4 = pointArray.point4;
-                $('#headImage').animate({left:point4.left,top:point4.top},(point4.left-point1.left)*6);
+                if (currentPointName == "point1") {
+                    $('.dice-all').hide();//隐藏图层
+                    move(currentPointName,"point4",function(){
+                        //弹出窗口
+                        console.log("callback-start");
+                        $('.picLayer-all').show();
+                        $('.picLayer-img img').attr('src','images/mainpage/floatWindow/1.png')
+                        $('.picLayer-img img').on('click',function(){
+                            $('.picLayer-all').hide();
+                        });
+                        console.log("callback-end");
+                    });//移动到point4
+                }else if(currentPointName == "point4"){
+
+                }
             });
         });
     </script>
@@ -227,7 +258,7 @@
         }
 
         #headImage {
-            background-image: url(http://static.leanote.top/ttxd/images/mianpage/head-img.png);
+            background-image: url('images/mainpage/head-img.png');
             position: absolute;
             width: 70px;
             height: 70px;
@@ -250,7 +281,6 @@
 </div>
 <div class="swiper-container">
     <div class="swiper-slide slide-1 overflow-scr" style="height: 947px">
-
         <!--背景图片,logo和中心button-->
         <div class="back_ground">
             <div class="item-image"></div>
@@ -272,6 +302,14 @@
                         <img src="">
                     </div>
                     <div class="dicecount">【前进4步】</div>
+                </div>
+
+                <!--其他弹窗-->
+                <div class="picLayer-all">
+                    <div class="picLayer-floating"></div>
+                    <div class="picLayer-img">
+                        <img src="">
+                    </div>
                 </div>
             </div>
         </div>
