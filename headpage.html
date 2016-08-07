@@ -35,6 +35,14 @@
             $('.item-btn').on('click',function () {
                 $('.cloud_up').addClass("cloudsRight");
                 $('.cloud_down').addClass("cloudsLeft");
+                //this代表dom元素,$(this)是一个jquery对象
+                var me = $(this);
+//                var me = this;
+                setTimeout(function () {
+                    $('.back_ground').css('background-image','url(\"images/mainpage/background.jpg\")');
+//                    console.log(this);//有任何疑问,用console.log打印出来
+                    me.hide();
+                },3e3);
             });
         });
     </script>

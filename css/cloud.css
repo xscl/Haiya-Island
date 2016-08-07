@@ -1,11 +1,11 @@
 .cloudsRight {
-    -webkit-animation: cloud_right_to_left 3s linear normal forwards;
-    animation: cloud_right_to_left 3s linear normal forwards
+    -webkit-animation: cloud_right_to_left 6s linear normal forwards;
+    animation: cloud_right_to_left 6s linear normal forwards
 }
 
 .cloudsLeft {
-    -webkit-animation: cloud_left_to_right 3s linear normal forwards;
-    animation: cloud_left_to_right 3s linear normal forwards
+    -webkit-animation: cloud_left_to_right 6s linear normal forwards;
+    animation: cloud_left_to_right 6s linear normal forwards
 }
 
 @-webkit-keyframes cloud_left_to_right {
