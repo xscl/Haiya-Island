@@ -3,8 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>海牙岛冒险之旅</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <!-- Add your keywords and description here for SEO. -->
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <script type="text/javascript" src="./jquery-1.11.3.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            //zoom缩放
+            var ww = $(window).width();
+            console.log(ww);
+            $('.swiper-container').css({
+                zoom: (ww / 640).toFixed(2)
+            });
+            // 音乐控制
+            $('#musicBtn').on('click', function () {
+                var myVideo=document.getElementById("video1");
+                console.log(myVideo.paused);
+                if(myVideo.paused){
+                    myVideo.play();
+                    $(this).removeClass("paused").addClass("played");
+                }else{
+                    myVideo.pause();
+                    $(this).removeClass("played").addClass("paused");
+                }
+            });
+        });
+    </script>
     <style type="text/css">
-        .back_ground {
+        .slide-1 .back_ground {
             background-image: url("images/headpage/background.jpg");
             background-repeat: no-repeat;
             width: 640px;
@@ -18,7 +45,31 @@
             color: #fff;
         }
 
-        .item-image {
+        .swiper-slide, .swiper-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .swiper-slide {
+            -webkit-flex-shrink: 0;
+            -ms-flex: 0 0 auto;
+            flex-shrink: 0;
+        }
+
+        .slide-1 .item-btn {
+            width: 232px;
+            height: 73px;
+            background: url("images/headpage/btn.png?v=1.2") no-repeat;
+            position: absolute;
+            top: 67.8%;
+            left: 32.5%;
+            border: none;
+            z-index: 998;
+        }
+
+
+        .slide-1 .item-image {
             width: 211px;
             height: 40px;
             background-repeat: no-repeat;
@@ -26,6 +77,20 @@
             position: absolute;
             left: 53px;
             top: 35px;
+        }
+
+        .btn-music {
+            width: 2rem;
+            height: 2rem;
+            background-color: transparent;
+            position: fixed;
+            top: .8rem;
+            right: .5rem;
+            z-index: 999;
+            border: .125rem solid #fff;
+            border-radius: 50%;
+            padding: 0;
+            cursor: pointer;
         }
 
         .btn-music i {
@@ -41,17 +106,66 @@
             background: url("images/musicOpen.png") no-repeat;
             background-size: 100%;
         }
+
+        .paused {
+            background: url("images/musicClose.png") no-repeat;
+            background-size: 100%;
+        }
+
+        div{
+            display: block;
+        }
+
+        .swiper-slide {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .overflow-scr {
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        .yun {
+            position: absolute;
+        }
+
+        .swiper-container, .yun {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 
 <body>
-<div class="back_ground">
-    <!--<img src="/images/loading.png" class="rotate">-->
-</div>
-<!--<div class="rotate-overlay" style="display:none">-->
-    <!--请竖起手机观看-->
+<!--<div class="loading-overlay">-->
+    <!--<img src="images/loading.png" class="rotate">-->
+    <!--<p class="progress">0%</p>-->
 <!--</div>-->
-
+<!--<div class="rotate-overlay">-->
+    <!--请竖起手机观看～-->
+<!--</div>-->
+<div class="swiper-container">
+    <div class="swiper-slide slide-1 overflow-scr" style="height: 947px">
+        <!--背景图片,logo和中心button-->
+        <div class="back_ground">
+            <div class="item-image"></div>
+            <div class="">
+                <input type="button" id="" class="item-btn">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cloud" style="overflow:hidden">
+    <div
+</div>
+<div id="musicBtn" class="btn-music played">
+    <!--<i class="played"></i>-->
+</div>
+<audio id="video1" autoplay="autoplay" loop>
+    <source src="audios/background.mp3" type="audio/mpeg">
+</audio>
 
 </body>
 </html>
