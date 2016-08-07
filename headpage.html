@@ -9,8 +9,10 @@
     <meta name="description" content="">
     <link rel="stylesheet" href="css/cloud.css">
     <link rel="stylesheet" href="css/dice.css">
+    <link rel="stylesheet" href="css/points.css">
     <script type="text/javascript" src="./jquery-1.11.3.js"></script>
     <script type="text/javascript" src="./resource-loader.js"></script>
+    <script type="text/javascript" src="./points-exporter.js"></script>
     <script type="text/javascript">
         $(function() {
             //判断是否是横向观看
@@ -85,14 +87,22 @@
                         $('.dicecount').show();
                         clearInterval(it);
                     }
-                },1000);
-//                setTimeout(function () {
-//                    for(var a = 1; a <= 5; i++){
-//                        $('.dice').
-//                    }
-//                },4e3);
-//                console.log($('.dice'));
-//                $('.dice').show();
+                },500);
+            });
+
+//            前进4步
+            var pointArray = pointExport.exportPoints();
+            $('.dicecount').on('click',function () {
+                //影藏图层
+                $('.floating-dice').hide();
+                $('.dice').hide();
+                $('.dice-shadow').hide();
+                $('.dicecount').hide();
+
+                //移动位置
+                var point1 = pointArray.point1;
+                var point4 = pointArray.point4;
+                $('#headImage').animate({left:point4.left,top:point4.top},(point4.left-point1.left)*6);
             });
         });
     </script>
@@ -255,7 +265,6 @@
         <!--头像-->
         <div class="head-image-background">
             <div id="headImage" class="headImageStart"></div>
-
                 <!--色子图片以及色子阴影-->
                 <div class="floating-dice"></div>
                 <div class="dice">
@@ -265,9 +274,11 @@
                     <img src="">
                 </div>
                 <div class="dicecount">【前进4步】</div>
-
             </div>
         </div>
+
+        <!--路径走动-->
+        <div class="hello"></div>
     </div>
 </div>
 <div class="cloud" style="overflow:hidden">
