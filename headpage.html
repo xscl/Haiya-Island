@@ -42,7 +42,7 @@
         function moveOneStep(startPointName,endPointName,callback){
             var startPoint = pointLocations[startPointName];
             var endPoint = pointLocations[endPointName];
-            var time = Math.abs(endPoint.left - startPoint.left + endPoint.top - startPoint.top) * 6;
+            var time = Math.abs(endPoint.left - startPoint.left + endPoint.top - startPoint.top) * 3;
             if(callback!==null){
                 $('#headImage').animate(endPoint,time,callback);
             }else{
