@@ -17,14 +17,27 @@
     <script type="text/javascript">
         //全局变量:起始坐标点
         var currentPointName = "point1";
-        //全局变量,所有的坐标点
-        var allPoints = pointExport.exportPoints();
-        function move(startPointName,endPointName,callBack){
-            var startPoint = allPoints[startPointName];
-            var endPoint = allPoints[endPointName];
 
+        //全局变量,所有的坐标点
+        var pointLocations = pointExport.exportPointsLocation();
+        function moveSteps(startPointName,endPointName,callback){
+            var pointNames = pointExport.getPoints(startPointName,endPointName);
+            for(var i = 0; i < pointNames.length - 2; i++){
+                moveOneStep(pointNames[i],pointNames[i+1],null);
+            }
+            moveOneStep(pointNames[pointNames.length-2],pointNames[pointNames.length-1],callback)
+        }
+
+        function moveOneStep(startPointName,endPointName,callback){
+            var startPoint = pointLocations[startPointName];
+            var endPoint = pointLocations[endPointName];
             var time = Math.abs(endPoint.left - startPoint.left + endPoint.top - startPoint.top) * 6;
-            $('#headImage').animate(endPoint,time,callBack);
+            console.log("callback:" + callback)
+            if(callback!==null){
+                $('#headImage').animate(endPoint,time,callback);
+            }else{
+                $('#headImage').animate(endPoint,time);
+            }
             currentPointName = endPointName;
         }
 
@@ -46,7 +59,6 @@
                 }
             }, 500);
         }
-
 
         $(function() {
             //判断是否是横向观看
@@ -118,15 +130,14 @@
             $('.dicecount').on('click',function () {
                 if (currentPointName == "point1") {
                     $('.dice-all').hide();//隐藏图层
-                    move(currentPointName,"point4",function(){
+                    moveSteps(currentPointName,"point4",function(){
                         //弹出窗口
-                        console.log("callback-start");
                         $('.picLayer-all').show();
                         $('.picLayer-img img').attr('src','images/mainpage/floatWindow/1.png')
                         $('.picLayer-img img').on('click',function(){
+                            //隐藏窗口
                             $('.picLayer-all').hide();
                         });
-                        console.log("callback-end");
                     });//移动到point4
                 }else if(currentPointName == "point4"){
 
