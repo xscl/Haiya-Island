@@ -8,6 +8,7 @@ var pointExport = ( function () {
     var pointsIndex = {};
     for (var i = 0; i< points.length; i++) {
         pointsIndex[points[i]] = i;
+
     }
 
     return {
@@ -66,7 +67,7 @@ var pointExport = ( function () {
 })();
 
 
-// var array = pointExport.getPoints("point28","point19")
+// var array = pointExport.getPoints("point12","point9")
 // var array = pointExport.getPoints("point19","point28");
 
 // console.log(array);
