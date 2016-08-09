@@ -26,11 +26,12 @@
             console.log("move from " + startPointName + " to " + endPointName)
             if(startPointName == endPointName){
                 moveOneStep(startPointName,endPointName,callback);
+                console.log("currentPointName:" + currentPointName)
                 return;
             }
 
             var pointNames = pointExport.getPoints(startPointName,endPointName);
-            console.log("steps:"+ pointNames);
+//            console.log("steps:"+ pointNames);
             for(var i = 0; i < pointNames.length - 2; i++){
                 moveOneStep(pointNames[i],pointNames[i+1],null);
             }
@@ -43,12 +44,16 @@
             var startPoint = pointLocations[startPointName];
             var endPoint = pointLocations[endPointName];
             var time = Math.abs(endPoint.left - startPoint.left + endPoint.top - startPoint.top) * 3;
+
+            //此处设置当前所处在的点,必须调用callback之前
+            currentPointName = endPointName;
+            console.log("move one step:currenPont is " + currentPointName);
+
             if(callback!==null){
                 $('#headImage').animate(endPoint,time,callback);
             }else{
                 $('#headImage').animate(endPoint,time);
             }
-            currentPointName = endPointName;
         }
 
         function displayDice() {
@@ -100,7 +105,6 @@
             // 音乐控制
             $('#musicBtn').on('click', function () {
                 var myVideo=document.getElementById("video1");
-                console.log(myVideo.paused);
                 if(myVideo.paused){
                     myVideo.play();
                     $(this).removeClass("paused").addClass("played");
@@ -135,69 +139,120 @@
                     displayDice();
                 }else if(currentPointName == "point9"){
                     //前进六步 移动到point19
-                    moveSteps(currentPointName, "point15", function(){showFloatImage("4.png")});
+                    moveSteps(currentPointName, "point15", function(){
+                        showfloatImage("point15");
+                    });
                 }
             });
 
-            function showFloatImage(floatImageName){
-                if(floatImageName == "1.png"){
-                    //弹出窗口
+            //图片点击事件
+            $('.picLayer-img img').on('click',function() {
+                //隐藏窗口
+                $('.picLayer-all').hide();
+                if(currentPointName == "point4"){
+                    //移动到point7
+                    moveSteps(currentPointName, "point7", function() {showfloatImage("point7");});
+                }else if(currentPointName == "point7"){
+                    //不移动
+                }else if(currentPointName == "point12"){
+                    //移动到point9
+                    moveSteps(currentPointName, "point9", function() {showfloatImage("point9");});
+                }
+            });
+
+            function showfloatImage(pointName){
+                var map = {
+                    "point4" : "1.png",
+                    "point7" : "2.png",
+                    "point12" : "3.png",
+                    "point15" : "4.png",
+                    "point19" : "5.png",
+                    "point23" : "6.png",
+                    "point28" : "7.png",
+                    "point30" : "8.png",
+                }
+                if(map.hasOwnProperty(pointName)) {
                     $('.picLayer-all').show();
-                    $('.picLayer-img img').attr('src','images/mainpage/floatWindow/'+floatImageName);
-                    $('.picLayer-img img').on('click',function() {
-                        //隐藏窗口
-                        $('.picLayer-all').hide();
-                        //移动到point7
-                        moveSteps(currentPointName, "point7", function(){showFloatImage("2.png")});
-                    });
-                }else if(floatImageName== "2.png"){
-                    //弹出窗口
-                    $('.picLayer-all').show();
-                    $('.picLayer-img img').attr('src','images/mainpage/floatWindow/'+floatImageName);
-                    $('.picLayer-img img').on('click',function() {
-                        //隐藏窗口
-                        $('.picLayer-all').hide();
-                    });
-                }else if(floatImageName== "3.png"){
-                    //弹出窗口
-                    $('.picLayer-all').show();
-                    $('.picLayer-img img').attr('src','images/mainpage/floatWindow/'+floatImageName);
-                    $('.picLayer-img img').on('click',function() {
-                        //隐藏窗口
-                        $('.picLayer-all').hide();
-                        moveSteps(currentPointName, "point9", function(){$('.picLayer-all').hide();});
-                    });
-                } else if(floatImageName== "4.png"){
-                    //弹出窗口
-                    $('.picLayer-all').show();
-                    $('.picLayer-img img').attr('src','images/mainpage/floatWindow/'+floatImageName);
-                    $('.picLayer-img img').on('click',function() {
-                        //隐藏窗口
-                        $('.picLayer-all').hide();
-                        //移动到point7
-                        moveSteps(currentPointName, "point19", function(){showFloatImage("5.png");});
-                    });
-                }else if(floatImageName== "5.png"){
-                    //弹出窗口
-                    $('.picLayer-all').show();
-                    $('.picLayer-img img').attr('src','images/mainpage/floatWindow/'+floatImageName);
-                    $('.picLayer-img img').on('click',function() {
-                        //隐藏窗口
-                        $('.picLayer-all').hide();
-                    });
+                    $('.picLayer-img img').attr('src', 'images/mainpage/floatWindow/' + map[pointName]);
+                }else{
+                    console.log("undefined:" + pointName);
                 }
             }
 
-            //前进4步
+            //色字点击事件
             $('.dicecount').on('click',function () {
+                $('.dice-all').hide();//隐藏图层
                 if (currentPointName == "point1") {
-                    $('.dice-all').hide();//隐藏图层
-                    moveSteps(currentPointName,"point4",function(){showFloatImage("1.png");});
+                    moveSteps(currentPointName,"point4",function(){showfloatImage("point4");});
                 }else if(currentPointName == "point7"){
-                    $('.dice-all').hide();//隐藏图层
-                    moveSteps("point7","point12",function(){showFloatImage("3.png");});
+                    moveSteps("point7","point12",function(){showfloatImage("point12");});
                 }
             });
+
+
+//
+//            function showFloatImage(floatImageName){
+//                console.log("floatImageName:" + floatImageName);
+//                if(floatImageName == "1.png"){
+//                    //弹出窗口
+//                    $('.picLayer-all').show();
+//                    $('.picLayer-img img').attr('src','images/mainpage/floatWindow/'+floatImageName);
+//                    $('.picLayer-img img').on('click',function() {
+//                        //隐藏窗口
+//                        $('.picLayer-all').hide();
+//                        //移动到point7
+//                        moveSteps(currentPointName, "point7", function(){
+//                            showFloatImage("2.png");
+//                        });
+//                    });
+//                }else if(floatImageName == "2.png"){
+//                    console.log("goto:" + floatImageName);
+//                    //弹出窗口
+//                    $('.picLayer-all').show();
+//                    $('.picLayer-img img').attr('src','images/mainpage/floatWindow/'+floatImageName);
+//                    $('.picLayer-img img').on('click',function() {
+//                        //隐藏窗口
+//                        $('.picLayer-all').hide();
+//                        $('.picLayer-img img').attr('src','');
+//                    });
+//                }else if(floatImageName == "3.png"){
+//                    //弹出窗口
+//                    $('.picLayer-all').show();
+//                    $('.picLayer-img img').attr('src','images/mainpage/floatWindow/'+floatImageName);
+//                    $('.picLayer-img img').on('click',function() {
+//                        //隐藏窗口
+//                        $('.picLayer-all').hide();
+//                        console.log("3.png currentPointName:"+currentPointName);
+//                        moveSteps(currentPointName, "point9", function(){
+//                            $('.picLayer-all').hide();
+//                            $('.picLayer-img img').attr('src','');
+//                        });
+//                    });
+//                } else if(floatImageName == "4.png"){
+//                    //弹出窗口
+//                    $('.picLayer-all').show();
+//                    $('.picLayer-img img').attr('src','images/mainpage/floatWindow/'+floatImageName);
+//                    $('.picLayer-img img').on('click',function() {
+//                        //隐藏窗口
+//                        $('.picLayer-all').hide();
+//                        //移动到point7
+//                        moveSteps(currentPointName, "point19", function(){
+//                            showFloatImage("5.png");
+//                        });
+//                    });
+//                }else if(floatImageName == "5.png"){
+//                    //弹出窗口
+//                    $('.picLayer-all').show();
+//                    $('.picLayer-img img').attr('src','images/mainpage/floatWindow/'+floatImageName);
+//                    $('.picLayer-img img').on('click',function() {
+//                        //隐藏窗口
+//                        $('.picLayer-all').hide();
+//                        $('.picLayer-img img').attr('src','');
+//                    });
+//                }
+//            }
+
+
         });
     </script>
     <style type="text/css">
