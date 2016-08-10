@@ -56,7 +56,7 @@
             }
         }
 
-        function displayDice() {
+        function displayDice(num) {
             //dice-all一定要影藏,才能操作下层图层
             $('.dice-all').show();
             $('.dicecount').hide();
@@ -64,11 +64,12 @@
             var a = 1;
             var it = setInterval(function () {
                 if (a <= 5) {
-                    $('.dice img').attr('src', 'images/mainpage/dice4/' + a + '.png');
+                    $('.dice img').attr('src', 'images/mainpage/dice'+ num + '/' + a + '.png');
                     $('.dice-shadow img').attr('src', 'images/mainpage/diceShadow/shadow' + a + '.png');
                     a++;
                 }
                 else {
+                    $('.dicecount').html('【前进' + num + '步】');
                     $('.dicecount').show();
                     clearInterval(it);
                 }
@@ -134,14 +135,18 @@
             //头像点击事件
             $('#headImage').on('click',function () {
                 if(currentPointName == "point1") {
-                    displayDice();
+                    displayDice(4);
                 }else if(currentPointName == "point7"){
-                    displayDice();
+                    displayDice(5);
                 }else if(currentPointName == "point9"){
-                    //前进六步 移动到point19
-                    moveSteps(currentPointName, "point15", function(){
-                        showfloatImage("point15");
+                    //前进六步 移动到point15
+                    displayDice(6);
+                }else if(currentPointName == "point19"){
+                    moveSteps(currentPointName, "point23", function(){
+                        showfloatImage("point23");
                     });
+                }else if(currentPointName == "point22"){
+                    displayDice(6);
                 }
             });
 
@@ -157,6 +162,35 @@
                 }else if(currentPointName == "point12"){
                     //移动到point9
                     moveSteps(currentPointName, "point9", function() {showfloatImage("point9");});
+                }else if(currentPointName == "point15"){
+                    //移动到point19
+                    moveSteps(currentPointName, "point19", function() {showfloatImage("point19");});
+                }else if(currentPointName == "point19"){
+                    //不移动
+                }else if(currentPointName == "point23"){
+                    //后退一步
+                    moveSteps(currentPointName, "point22", function() {showfloatImage("point22");});
+                }else if(currentPointName == "point28"){
+                    //后退一步
+                    moveSteps(currentPointName, "point30", function() {showfloatImage("point30");});
+                }
+            });
+
+            //色字点击事件
+            $('.dicecount').on('click',function () {
+                $('.dice-all').hide();//隐藏图层
+                if (currentPointName == "point1") {
+                    moveSteps(currentPointName,"point4",function(){showfloatImage("point4");});
+                }else if(currentPointName == "point7"){
+                    moveSteps("point7","point12",function(){showfloatImage("point12");});
+                }else if(currentPointName == "point9"){
+                    moveSteps(currentPointName, "point15", function(){
+                        showfloatImage("point15");
+                    });
+                }else if(currentPointName == "point22"){
+                    moveSteps(currentPointName, "point28", function(){
+                        showfloatImage("point28");
+                    });
                 }
             });
 
@@ -167,9 +201,9 @@
                     "point12" : "3.png",
                     "point15" : "4.png",
                     "point19" : "5.png",
-                    "point23" : "6.png",
-                    "point28" : "7.png",
-                    "point30" : "8.png",
+                    "point23" : "8.png",
+                    "point28" : "9.png",
+                    "point30" : "10.png",
                 }
                 if(map.hasOwnProperty(pointName)) {
                     $('.picLayer-all').show();
@@ -178,16 +212,6 @@
                     console.log("undefined:" + pointName);
                 }
             }
-
-            //色字点击事件
-            $('.dicecount').on('click',function () {
-                $('.dice-all').hide();//隐藏图层
-                if (currentPointName == "point1") {
-                    moveSteps(currentPointName,"point4",function(){showfloatImage("point4");});
-                }else if(currentPointName == "point7"){
-                    moveSteps("point7","point12",function(){showfloatImage("point12");});
-                }
-            });
         });
     </script>
     <style type="text/css">
@@ -357,7 +381,7 @@
                     <div class="dice-shadow">
                         <img src="">
                     </div>
-                    <div class="dicecount">【前进4步】</div>
+                    <div class="dicecount"></div>
                 </div>
 
                 <!--其他弹窗-->
