@@ -73,7 +73,7 @@
                     $('.dicecount').show();
                     clearInterval(it);
                 }
-            }, 500);
+            }, 200);
         }
 
         $(function() {
@@ -138,63 +138,48 @@
                     displayDice(4);
                 }else if(currentPointName == "point7"){
                     displayDice(5);
-                }else if(currentPointName == "point9"){
-                    //前进六步 移动到point15
-                    displayDice(6);
-                }else if(currentPointName == "point19"){
-                    moveSteps(currentPointName, "point23", function(){
-                        showfloatImage("point23");
-                    });
-                }else if(currentPointName == "point22"){
+                }else if(currentPointName == "point9"|| currentPointName == "point19" || currentPointName == "point22"){
                     displayDice(6);
                 }
+//                else if(currentPointName == "point19") {
+//                    moveSteps(currentPointName, "point23", function () {showfloatImage();});
+//                }
             });
 
             //图片点击事件
             $('.picLayer-img img').on('click',function() {
+                var imgEvents = {
+                    'point4':'point7',
+                    'point12':'point9',
+                    'point15':'point19',
+                    'point23':'point22',
+                    'point28':'point30'
+                }
                 //隐藏窗口
                 $('.picLayer-all').hide();
-                if(currentPointName == "point4"){
-                    //移动到point7
-                    moveSteps(currentPointName, "point7", function() {showfloatImage("point7");});
-                }else if(currentPointName == "point7"){
-                    //不移动
-                }else if(currentPointName == "point12"){
-                    //移动到point9
-                    moveSteps(currentPointName, "point9", function() {showfloatImage("point9");});
-                }else if(currentPointName == "point15"){
-                    //移动到point19
-                    moveSteps(currentPointName, "point19", function() {showfloatImage("point19");});
-                }else if(currentPointName == "point19"){
-                    //不移动
-                }else if(currentPointName == "point23"){
-                    //后退一步
-                    moveSteps(currentPointName, "point22", function() {showfloatImage("point22");});
-                }else if(currentPointName == "point28"){
-                    //后退一步
-                    moveSteps(currentPointName, "point30", function() {showfloatImage("point30");});
+                if(imgEvents.hasOwnProperty(currentPointName)){
+                    var endPoint = imgEvents[currentPointName];
+                    moveSteps(currentPointName, endPoint, function() {showfloatImage();});
                 }
             });
 
             //色字点击事件
             $('.dicecount').on('click',function () {
+                var diceEvents = {
+                    'point1':'point4',
+                    'point7':'point12',
+                    'point9':'point15',
+                    'point19':'point23',
+                    'point22':'point28'
+                }
                 $('.dice-all').hide();//隐藏图层
-                if (currentPointName == "point1") {
-                    moveSteps(currentPointName,"point4",function(){showfloatImage("point4");});
-                }else if(currentPointName == "point7"){
-                    moveSteps("point7","point12",function(){showfloatImage("point12");});
-                }else if(currentPointName == "point9"){
-                    moveSteps(currentPointName, "point15", function(){
-                        showfloatImage("point15");
-                    });
-                }else if(currentPointName == "point22"){
-                    moveSteps(currentPointName, "point28", function(){
-                        showfloatImage("point28");
-                    });
+                if(diceEvents.hasOwnProperty(currentPointName)){
+                    var endPoint = diceEvents[currentPointName];
+                    moveSteps(currentPointName, endPoint, function() {showfloatImage();});
                 }
             });
 
-            function showfloatImage(pointName){
+            function showfloatImage(){
                 var map = {
                     "point4" : "1.png",
                     "point7" : "2.png",
@@ -205,11 +190,12 @@
                     "point28" : "9.png",
                     "point30" : "10.png",
                 }
-                if(map.hasOwnProperty(pointName)) {
+                if(map.hasOwnProperty(currentPointName)) {
+                    var imgname = map[currentPointName];
                     $('.picLayer-all').show();
-                    $('.picLayer-img img').attr('src', 'images/mainpage/floatWindow/' + map[pointName]);
+                    $('.picLayer-img img').attr('src', 'images/mainpage/floatWindow/' + imgname);
                 }else{
-                    console.log("undefined:" + pointName);
+                    console.log("undefined:" + currentPointName);
                 }
             }
         });
