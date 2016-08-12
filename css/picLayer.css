@@ -86,33 +86,27 @@
 .play-again{
     width: 214px;
     height: 92px;
-    left:50%;
-    top:400px;
+    left:40px;
+    top:130px;
     position: absolute;
-    margin-left:-262px;
-    /*margin-top: -46px;*/
     opacity: 1;
 }
 
 .start-play{
     width: 214px;
     height: 92px;
-    left:50%;
-    top:400px;
+    left: 280px;
+    top:130px;
     position: absolute;
-    margin-left:-107px;
-    /*margin-top: -46px;*/
     opacity: 1;
 }
 
 .obtain-award{
     width: 214px;
     height: 92px;
-    left:50%;
-    top:500px;
+    left:150px;
+    top:240px;
     position: absolute;
-    margin-left:-262px;
-    /*margin-top: -46px;*/
     opacity: 1;
 }
 
