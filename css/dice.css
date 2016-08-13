@@ -1,5 +1,6 @@
 /*色字动画效果*/
 
+/*色字总层*/
 .dice-all{
     width:100%;
     height: 100%;
@@ -9,29 +10,7 @@
     display: none;
 }
 
-.dice {
-    width:100%;
-    height: 100%;
-    position: absolute;
-    left:50%;
-    top:50%;
-    margin-left: -72px;
-    margin-top: -49px;;
-    opacity: 1;
-}
-
-
-.dice-shadow{
-    width:100%;
-    height: 100%;
-    position: absolute;
-    left:50%;
-    top:50%;
-    margin-left: -72px;
-    margin-top: -49px;;
-    opacity: 1;
-}
-
+/*色字图层*/
 .floating-dice{
     width:100%;
     height: 100%;
@@ -42,14 +21,34 @@
     background: #d8d2d2;
 }
 
+
+/*色字*/
+.dice {
+    position: absolute;
+    left:50%;
+    top:30%;
+    margin-left: -72px;
+    margin-top: -49px;;
+    opacity: 1;
+}
+
+/*色字影子*/
+.dice-shadow{
+    position: absolute;
+    left:50%;
+    top:35%;
+    margin-left: -72px;
+    margin-top: -75px;;
+    opacity: 1;
+}
+
+
+/*色字点数*/
 .dicecount {
-    width: 100%;
-    height:100%;
     position: absolute;
     left:50%;
     top:50%;
     margin-left: -140px;
-    margin-top:52px ;
     color: #61b0cf;
     top: 480px;
     font-size: 45px;

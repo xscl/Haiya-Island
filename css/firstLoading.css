@@ -12,7 +12,8 @@
     left: 0;
     top: 0;
     line-height: 320px;
-    text-align: center
+    text-align: center;
+    display:none;
 }
 
 .loading-overlay {
