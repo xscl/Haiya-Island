@@ -128,8 +128,10 @@
         }
 
         .headImageStart {
-            left: 78px;
-            top: 320px;
+            /*left: 78px;*/
+            /*top: 320px;*/
+            left: 195px;
+            top: 730px;
         }
     </style>
     <script type="text/javascript" src="./jquery-1.11.3.js"></script>
@@ -137,7 +139,7 @@
     <script type="text/javascript" src="./points-exporter.js"></script>
     <script type="text/javascript">
         //全局变量:起始坐标点
-        var currentPointName = "point1";
+        var currentPointName = "point22";
 
         //全局变量,所有的坐标点
         var pointLocations = pointExport.exportPointsLocation();
@@ -310,7 +312,7 @@
 
                 if(currentPointName == "point30"){
                     $('.picLayer-all').show();
-                    $('.last_picLayer-img').show();
+                    $('.succeed-rewards').show();
                 }
 
                 if(map.hasOwnProperty(currentPointName)) {
@@ -322,37 +324,41 @@
                 }
             }
 
-            //分享链接点击事件
-            $('.get-award').on('click',function () {
+            //分享链接-点击事件
+            $('.succeed-rewards-btn').on('click',function () {
                 $('.picLayer-all').show();
-                $('.last_picLayer-img').hide();
-                $('.award-share').show();
+                $('.succeed-rewards').hide();
+                $('.extract-rewards').show();
             });
 
-            //再玩一次点击事件
+            //再玩一次-点击事件
             $('.play-again').on('click',function () {
 //                图层隐藏
-                $('.last_picLayer-img').hide();
-                $('.award-share').show();
+                $('.extract-rewards').hide();
                 $('.picLayer-all').hide();
 //                头像重新定位到1
-
+                $('#headImage').css("left","78px");
+                $('#headImage').css("top","320px");
 //                数据重置
                 currentPointName = "point1";
             });
 
-            //进入游戏点击事件
+            //进入游戏-点击事件
             $('.start-play').on('click',function () {
+                //图层影藏
                 $('.picLayer-all').show();
-                $('.last_picLayer-img').hide();
-                $('.award-share').show();
+                $('.extract-rewards').show();
+                //连接到网页
+                location.href = "http://ttxd.qq.com/m/index-baidu.shtml";
             });
 
             //已获得奖励点击事件
             $('.obtain-award').on('click',function () {
+                //图层影藏
                 $('.picLayer-all').show();
-                $('.last_picLayer-img').hide();
-                $('.award-share').show();
+                $('.extract-rewards').show();
+                //连接到网页
+                location.href = "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=tencentgamettxdpre&logo=0";
             });
         });
     </script>
@@ -396,13 +402,13 @@
                 </div>
 
                 <!--最后一幅图片-->
-                <div class="last_picLayer-img">
-                    <img class="last_succ" src="images/mainpage/floatWindow/10.png">
-                    <img class="get-award" src="images/mainpage/floatWindow/Got-award-btn.png">
+                <div class="succeed-rewards">
+                    <img class="succeed-rewards-img" src="images/mainpage/floatWindow/10.png">
+                    <img class="succeed-rewards-btn" src="images/mainpage/floatWindow/Got-award-btn.png">
                 </div>
 
                 <!--分享图片-->
-                <div class="award-share">
+                <div class="extract-rewards">
                     <img class="input_cdk" src="images/mainpage/floatWindow/CDK3.png">
                     <div class="option-links">
                         <img class="play-again" src="images/mainpage/floatWindow/play-again-btn.png">
