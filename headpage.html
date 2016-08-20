@@ -261,9 +261,6 @@
                 }else if(currentPointName == "point9"|| currentPointName == "point19" || currentPointName == "point22"){
                     displayDice(6);
                 }
-//                else if(currentPointName == "point19") {
-//                    moveSteps(currentPointName, "point23", function () {showfloatImage();});
-//                }
             });
 
             //图片点击事件
@@ -308,8 +305,14 @@
                     "point19" : "5.png",
                     "point23" : "8.png",
                     "point28" : "9.png",
-                    "point30" : "10.png",
+//                    "point30" : "10.png",
                 }
+
+                if(currentPointName == "point30"){
+                    $('.picLayer-all').show();
+                    $('.last_picLayer-img').show();
+                }
+
                 if(map.hasOwnProperty(currentPointName)) {
                     var imgname = map[currentPointName];
                     $('.picLayer-all').show();
@@ -318,6 +321,39 @@
                     console.log("undefined:" + currentPointName);
                 }
             }
+
+            //分享链接点击事件
+            $('.get-award').on('click',function () {
+                $('.picLayer-all').show();
+                $('.last_picLayer-img').hide();
+                $('.award-share').show();
+            });
+
+            //再玩一次点击事件
+            $('.play-again').on('click',function () {
+//                图层隐藏
+                $('.last_picLayer-img').hide();
+                $('.award-share').show();
+                $('.picLayer-all').hide();
+//                头像重新定位到1
+
+//                数据重置
+                currentPointName = "point1";
+            });
+
+            //进入游戏点击事件
+            $('.start-play').on('click',function () {
+                $('.picLayer-all').show();
+                $('.last_picLayer-img').hide();
+                $('.award-share').show();
+            });
+
+            //已获得奖励点击事件
+            $('.obtain-award').on('click',function () {
+                $('.picLayer-all').show();
+                $('.last_picLayer-img').hide();
+                $('.award-share').show();
+            });
         });
     </script>
 </head>
@@ -355,15 +391,15 @@
             <!--其他弹窗-->
             <div class="picLayer-all">
                 <div class="picLayer-floating"></div>
-                <!--<div class="picLayer-img">-->
-                    <!--<img src="">-->
-                <!--</div>-->
+                <div class="picLayer-img">
+                    <img src="">
+                </div>
 
                 <!--最后一幅图片-->
-                <!--<div class="last_picLayer-img">-->
-                    <!--<img class="last_succ" src="images/mainpage/floatWindow/10.png">-->
-                    <!--<img class="get-award" src="images/mainpage/floatWindow/Got-award-btn.png">-->
-                <!--</div>-->
+                <div class="last_picLayer-img">
+                    <img class="last_succ" src="images/mainpage/floatWindow/10.png">
+                    <img class="get-award" src="images/mainpage/floatWindow/Got-award-btn.png">
+                </div>
 
                 <!--分享图片-->
                 <div class="award-share">
